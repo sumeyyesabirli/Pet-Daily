@@ -21,11 +21,11 @@ namespace CatDaily.Business.Concrete
 
         public async Task<ResponseModel<List<GetAnimalTypeListResponseModel>>> GetAnimalTypeListAsync(GetAnimalTypeListRequestModel request)
 		{
-			var data = await _animalTypeRepository.GetAnimalTypeList();
+			var data = await _animalTypeRepository.GetAnimalTypeList(request);
 			// auto mapper...
-			var mappedData = _mapper.Map<List<GetAnimalTypeListResponseModel>>(data);
+			var mappedData = _mapper.Map<List<GetAnimalTypeListResponseModel>>(data.Data);
 
-            return ResponseManager.CreateSuccess(mappedData);
+            return ResponseManager.CreateSuccess(mappedData, data.Count, data.TotalCount);
         }
 
         public async Task<ResponseModel> AddAnimalTypeAsync(AddAnimalTypeRequestModel requestModel)

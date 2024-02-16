@@ -1,4 +1,6 @@
-﻿using CatDaily.Core.SeedWork;
+﻿using CatDaily.Core.Helper;
+using CatDaily.Core.Models;
+using CatDaily.Core.SeedWork;
 using CatDaily.DataAccess.Context;
 using CatDaily.DataAccess.Entity;
 using CatDaily.DataAccess.Repositories.Abstract;
@@ -15,15 +17,16 @@ namespace CatDaily.DataAccess.Repositories.Concrete
             _dbContext = dbContext;
         }
 
-        public async Task<List<AnimalType>> GetAnimalTypeList()
+        public async Task<PageResult<AnimalType>> GetAnimalTypeList(PaginationRequestModel requestModel)
         {
             // yöntem 1
-            return await _dbContext.AnimalTypes.Where(x=> x.IsActive == true).OrderBy(x=> x.Name).ToListAsync();
+            var paginingFilter = _dbContext.AnimalTypes.Where(x=>x.IsActive==true).PaginationFilter(requestModel);
+            return paginingFilter;
             //yöntem 2
-          /* return await (from animaltypes in _dbContext.AnimalTypes
-                    where animaltypes.IsActive == true
-                    orderby animaltypes.Name
-                    select animaltypes).ToListAsync();*/
+            /* return await (from animaltypes in _dbContext.AnimalTypes
+                      where animaltypes.IsActive == true
+                      orderby animaltypes.Name
+                      select animaltypes).ToListAsync();*/
         }
 
         public async Task AddAnimalType(AnimalType animalType)

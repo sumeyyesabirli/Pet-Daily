@@ -15,19 +15,21 @@ namespace CatDaily.Core.ResponseManager
 		}
 
 
-		public static ResponseModel<T> CreateSuccess<T>(T data, string message = "Success")
-		{
-			return new ResponseModel<T>
-			{
-				Data = data,
-				Message = message,
-				StatusCode = System.Net.HttpStatusCode.OK
-			};
-		}
+        public static ResponseModel<T> CreateSuccess<T>(T data, int count = 0, int totalCount = 0, string message = "Success")
+        {
+            return new ResponseModel<T>
+            {
+                Data = data,
+                Message = message,
+                StatusCode = System.Net.HttpStatusCode.OK,
+                Count = count,
+                TotalCount = totalCount
+            };
+        }
         #endregion
 
         #region Error
-		public static ResponseModel CreateError(string message)
+        public static ResponseModel CreateError(string message)
 		{
 			return new ResponseModel
 			{

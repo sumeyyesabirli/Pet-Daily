@@ -1,6 +1,8 @@
-﻿namespace CatDaily.Business.Models.RequestModel
+﻿using CatDaily.Core.Models;
+
+namespace CatDaily.Business.Models.RequestModel
 {
-	public class GetAnimalTypeListRequestModel
+	public class GetAnimalTypeListRequestModel:PaginationRequestModel
 	{
 	}
 }
